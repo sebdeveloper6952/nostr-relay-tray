@@ -89,6 +89,11 @@ const createMenu = (localIpAddress) => {
       type: "normal",
       click: importEvents,
     },
+    {
+      label: "Delete all Events",
+      type: "normal",
+      click: deleteAllEvents,
+    },
     { type: "separator" },
     {
       label: `ws://localhost:4869 - Copy`,
@@ -292,6 +297,18 @@ const importEvents = async () => {
         }).show();
       }, 1000);
     });
+  }
+};
+
+const deleteAllEvents = async () => {
+  const dialogResult = await dialog.showMessageBox({
+    title: "Delete all Events",
+    message: "Are you sure?",
+    buttons: ["Yes", "No"],
+  });
+
+  if (dialogResult.response === 0) {
+    const stmt = db.exec("DELETE FROM events");
   }
 };
 
